@@ -11,6 +11,10 @@ import "net/http"
 import "io/ioutil"
 import "encoding/json"
 
+const (
+  URL_OAUTH2 = "https://api.twitter.com/oauth2/token"
+)
+
 type TwitterAuthError struct {
   Errors []json.RawMessage `json:"errors"`
 }
@@ -22,15 +26,16 @@ type ErrorInfo struct {
 }
 
 func main() {
-  url := "https://api.twitter.com/oauth2/token";
+  twitterAuth()
+}
 
-  resp, err := http.Get(url)
+func twitterAuth() (err error) {
+  resp, err := http.Get(URL_OAUTH2)
   if err != nil {
     fmt.Printf("Error: %s", err)
   }
 
   defer resp.Body.Close()
-
   body, err := ioutil.ReadAll(resp.Body)
 
   twitterAuthErrors := &TwitterAuthError{}
@@ -49,6 +54,7 @@ func main() {
     fmt.Printf("%v %s %s \n\n",errorInfo.Code, errorInfo.Label, errorInfo.Message)
   }
 
+  return
 }
 
 func test(){

@@ -13,11 +13,23 @@ import (
   "encoding/json"
 )
 
+//-----------------------------------------------------------------------------
+// Constants
+//-----------------------------------------------------------------------------
+
 const (
   URL_OAUTH2 = "https://api.twitter.com/oauth2/token"
 )
 
+//-----------------------------------------------------------------------------
+// Structs
+//-----------------------------------------------------------------------------
+
 type TwitterAuthError struct {
+  //-------------------------------------------
+  // RawMessage is a raw encoded JSON object.
+  // Ref.: http://golang.org/pkg/encoding/json/
+  //-------------------------------------------
   Errors []json.RawMessage `json:"errors"`
 }
 
@@ -26,6 +38,8 @@ type ErrorInfo struct {
   Label string
   Message string
 }
+
+//-----------------------------------------------------------------------------
 
 func main() {
   twitterAuth()
@@ -41,6 +55,10 @@ func twitterAuth() (err error) {
   body, err := ioutil.ReadAll(resp.Body)
 
   twitterAuthErrors := &TwitterAuthError{}
+  //-------------------------------------------------------------
+  // Unmarshal parses the JSON-encoded data
+  // Ref.: http://golang.org/pkg/encoding/json/#example_Unmarshal
+  //-------------------------------------------------------------
   err = json.Unmarshal(body, &twitterAuthErrors)
 
   if err != nil {
@@ -58,6 +76,10 @@ func twitterAuth() (err error) {
 
   return
 }
+
+//-----------------------------------------------------------------------------
+// Template - Tests
+//-----------------------------------------------------------------------------
 
 func test(){
   /*

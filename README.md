@@ -5,7 +5,13 @@ twitter-auth-go
 
 ### How to use ?
 
-TODO
+####Test
+
+```$ go test twitter-auth_test.go twitter-auth.go```
+
+####Run
+
+```$ go run twitter-auth.go```
 
 ##### Author
 http://github.com/denis-mendes

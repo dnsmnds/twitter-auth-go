@@ -6,10 +6,12 @@
 
 package main
 
-import "fmt"
-import "net/http"
-import "io/ioutil"
-import "encoding/json"
+import (
+  "fmt"
+  "net/http"
+  "io/ioutil"
+  "encoding/json"
+)
 
 const (
   URL_OAUTH2 = "https://api.twitter.com/oauth2/token"
